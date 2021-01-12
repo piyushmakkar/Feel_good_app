@@ -1,0 +1,208 @@
+##:kivy
+<LoginScreen>:
+    
+    GridLayout:
+        cols: 1
+        spacing: 20,20
+    
+        GridLayout:
+            cols: 1
+            padding: 15,15
+            spacing: 20,20
+    
+            Label:
+                text: "User Login"
+                font_size: "20sp"
+    
+            TextInput:
+                id: username
+                hint_text: "Username"
+    
+            TextInput:
+                id: password
+                password: True
+                hint_text: "Password"
+    
+            RelativeLayout:
+    
+                Button:
+                    text: "Login"
+                    on_press: root.login_done(root.ids.username.text,root.ids.password.text)
+                    size_hint: 0.2,0.5
+                    pos_hint: {'center_x': 0.5,'center_y':0.3}
+    
+            Label:
+                id: wrong_cred
+                text: ""
+    
+        GridLayout:
+            cols: 3
+            size_hint: 0.2,0.2
+            padding: 10,10
+            spacing: 10,0
+    
+            Button:
+                text: "Forgot Password?"
+                on_press: root.forgot_password()
+                background_color: 1,1,1,0
+                opacity: 1 if self.state == "normal" else 0.5
+                color: 0.1,0.7,1,1
+    
+            Button:
+                text: "Change Password"
+                on_press: root.change_password()
+                background_color: 1,1,1,0
+                opacity: 1 if self.state == "normal" else 0.5
+                color: 0.1,0.7,1,1    
+    
+            Button:
+                text: "Sign Up"
+                on_press: root.sign_up()
+                background_color: 1,1,1,0
+                opacity: 1 if self.state == "normal" else 0.5
+                color: 0.1,0.7,1,1
+
+<SignUpScreen>:
+
+    GridLayout:
+        cols: 1
+
+        Button:
+            text:"Go Back"
+            on_press: root.go_back()
+
+        Label:
+            text: "Sign-Up now"
+
+        TextInput:
+            id: username
+            hint_text: "Username"
+
+        TextInput:
+            id: password
+            hint_text: "Password"
+
+        Button:
+            text: "Sign-Up"
+            on_press: root.add_user(root.ids.username.text,root.ids.password.text)
+
+        Label:
+            id: user_already_exists
+            text: ""
+
+<SignUpSuccessScreen>:
+
+    GridLayout:
+        cols: 1
+
+        Label:
+            text: "Sign-up Successfull"
+
+        Button:
+            text: "Login Now"
+            on_press: root.login_now()
+
+<LoginSuccessScreen>:
+
+    GridLayout:
+        cols: 1
+        padding: 30,30
+        spacing: 30,30
+
+        RelativeLayout:
+
+            ImageButton:
+                source: 'logout_hover.png' if self.hovered else 'logout_nothover.png'
+                on_press: root.log_out()
+                size_hint: 0.35,0.35
+                pos_hint: {"center_x":0.9,"center_y":0.8}
+
+        Label:
+            text: "How do you feel?"
+
+        TextInput:
+            id: mood
+            hint_text: "Things to try: Happy, Sad, Unloved"
+
+        Button:
+            text: "Give me Quotes"
+            on_press: root.display_quotes(root.ids.mood.text)
+
+        ScrollView:
+
+            Label:
+                id: quote
+                text: ""
+                text_size: self.width, None
+                size_hint_y: None
+                height: self.texture_size[1]
+
+<ForgotPasswordScreen>:
+
+    GridLayout:
+        cols: 1
+
+        Button:
+            text: "Back"  
+            on_press: root.login_page()
+
+        Label:
+            text: "Forgot Password"
+
+        TextInput:
+            id: username
+            hint_text: "Username"
+
+        TextInput:
+            id: password
+            hint_text: "New Password"
+
+        Button:
+            text:"Submit"
+        
+        Label:    
+            text: ""
+
+<ChangePasswordScreen>:
+
+    GridLayout:
+        cols: 1
+
+        Button:
+            text: "Back"  
+            on_press: root.login_page()
+
+        Label:
+            text: "Forgot Password"
+
+        TextInput:
+            id: username
+            hint_text: "Username"
+
+        TextInput:
+            id: password
+            hint_text: "Old Password"
+       
+        TextInput:
+            id: new_password
+            hint_text: "New Password"
+
+        Button:
+            text:"Submit"
+        
+        Label:    
+            text: ""
+
+<RootWidget>:
+    LoginScreen:
+        name: "login_screen"
+    SignUpScreen:
+        name: "sign_up_screen"
+    SignUpSuccessScreen:
+        name: "sign_up_sucess_screen"
+    LoginSuccessScreen:
+        name: "login_sucess_screen"
+    ForgotPasswordScreen:
+        name: "forgot_password_screen"
+    ChangePasswordScreen:
+        name: "change_password_screen"
